@@ -114,4 +114,15 @@ public class CRUD
 
         session.Execute(statement);
     }
+
+    public void UpdateAnimalById(string id, double newAge, string newBio, string newBreedId, DateTime? newDateOfBirth, bool newGender, DateTime? newLastUpdatedOn, string newName, string newPetAvatarId, string newPetColors, string newSixDigitCode)
+    {
+        var updateQuery = session.Prepare(
+            "UPDATE animal SET age = ?, bio = ?, breedid = ?, dateofbirth = ?, gender = ?, lastupdatedon = ?, name = ?, petavatarid = ?, petcolors = ?, sixdigitcode = ? WHERE id = ?");
+
+        var statement = updateQuery
+            .Bind(newAge, newBio, newBreedId, newDateOfBirth, newGender, newLastUpdatedOn, newName, newPetAvatarId, newPetColors, newSixDigitCode, Guid.Parse(id));
+
+        session.Execute(statement);
+    }
 }
